@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     kotlin("plugin.serialization") version "1.9.22"
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -71,6 +72,8 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-coil:0.7.0")
 
 //    /**firebase fcm**/
-//    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-//    implementation(libs.firebase.messaging.ktx)
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+
 }

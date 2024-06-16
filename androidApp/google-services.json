@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "462932603634",
+    "project_id": "movii-fae25",
+    "storage_bucket": "movii-fae25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462932603634:android:07b981b38f027f71cad66b",
+        "android_client_info": {
+          "package_name": "com.mo.movie.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462932603634-04fn3vglo50mbs9pd6qfll4c1fgsb3di.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEje1vzdHAL6zdTsswAvG6-bPRK6A73Uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462932603634-04fn3vglo50mbs9pd6qfll4c1fgsb3di.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,6 +14,7 @@ private lateinit var dataStore: DataStore<Preferences>
 
 private val lock = SynchronizedObject()
 
+@OptIn(InternalCoroutinesApi::class)
 fun getDataStore(producePath: () -> String): DataStore<Preferences> =
     synchronized(lock) {
         if (::dataStore.isInitialized) {
