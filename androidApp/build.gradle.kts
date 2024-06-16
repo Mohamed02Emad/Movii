@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-    namespace = "com.mo.newbase.android"
+    namespace = "com.mo.movie.android"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.mo.newbase.android"
+        applicationId = "com.mo.movie.android"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

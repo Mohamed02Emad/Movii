@@ -80,7 +80,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.mo.newbase"
+    namespace = "com.mo.movie"
     compileSdk = 34
     defaultConfig {
         minSdk = 26
@@ -97,7 +97,7 @@ dependencies {
 sqldelight {
     databases {
         create(name = "MyDataBase") {
-            packageName.set("com.mo.newbase")
+            packageName.set("com.mo.movie")
         }
     }
 }

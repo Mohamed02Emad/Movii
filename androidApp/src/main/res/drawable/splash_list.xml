@@ -8,19 +8,11 @@
     </item>
 
 
-
-    <item
-        android:gravity="bottom|center_horizontal"
-        android:width="600dp"
-        android:height="350dp"
-        android:drawable="@drawable/splash_image"
-         />
-
     <item
         android:gravity="center"
         android:width="130dp"
         android:height="130dp"
-        android:bottom="250dp"
+        android:bottom="80dp"
         android:drawable="@drawable/logo"
         />
 

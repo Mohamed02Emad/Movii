@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Green Revive</string>
-    <string name="on_boarding1">Recycling is the process of converting waste materials into new materials and obiects</string>
-    <string name="on_boarding2">Create Good Recycling Habits</string>
-    <string name="on_boarding3">Reduces the amount of waste sent to landfills and incinerators</string>
+    <string name="app_name">Movii</string>
+    <string name="on_boarding1">There is nothing better than watching a movie on your free time</string>
+    <string name="on_boarding2">You can find large collection of movies to choose from</string>
+    <string name="on_boarding3">Get you snacks and lets start</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Green Revive</string>
-    <string name="on_boarding1">إعادة التدوير هي عملية تحويل مواد النفايات إلى مواد وأشياء جديدة.</string>
-    <string name="on_boarding2">قم بتطوير عادات جيدة في إعادة التدوير</string>
-    <string name="on_boarding3"> يقلل من كمية النفايات المرسلة إلى المكبات ومحرقات النفايات.</string>
+    <string name="app_name">Movii</string>
+    <string name="on_boarding1">لا يوجد ما هو افضل من مشاهدة الافلام في وقت فراغك.</string>
+    <string name="on_boarding2">يوجد الكثير من الافلام المميزه لتختار منها</string>
+    <string name="on_boarding3"> احضر وجبتك الخفيفة و لنبدأ.</string>
     <string name="skip">تخطي</string>
     <string name="next">التالي</string>
     <string name="previous">السابق</string>
