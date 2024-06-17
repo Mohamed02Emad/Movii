@@ -53,7 +53,7 @@ fun BottomNavigationBar(navController: NavController) {
     )
     val navigationScreens = navigationItems.map { it.screen.route }
     val primaryColor = MaterialTheme.colorScheme.primary
-    val backgroundColor = MaterialTheme.colorScheme.background
+    val backgroundColor = MaterialTheme.colorScheme.secondaryContainer
     val notSelectedColor = Color(61, 61, 61, 255)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
