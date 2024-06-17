@@ -53,6 +53,9 @@ dependencies {
     /**system ui helper**/
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
 
+    /**collapsing tool bar*/
+    implementation("me.onebone:toolbar-compose:2.3.5")
+
     /**Splash Api**/
     implementation(libs.splash.api)
 

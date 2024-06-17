@@ -39,7 +39,7 @@ fun <T> HandleRequestStateUi(
                     child()
                 }
                 if (state is BaseState.PagingLoading)
-                    LoadingAnimation(margin = PaddingValues(bottom = 20.dp),indicatorSize = 26.dp)
+                LoadingAnimation(margin = PaddingValues(bottom = 20.dp),indicatorSize = 26.dp)
             }
         }
 
