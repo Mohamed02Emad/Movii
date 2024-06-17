@@ -28,6 +28,7 @@ import com.mo.movie.android.R
 import com.mo.movie.android.core.composables.HandleRequestStateUi
 import com.mo.movie.android.core.composables.Height
 import com.mo.movie.android.core.composables.ImagesSlider
+import com.mo.movie.android.features.home.presentation.composables.HomeFilterButton
 import com.mo.movie.android.features.home.presentation.composables.MovieCard
 import com.mo.movie.android.theme.fontFamilyOverPass
 import com.mo.movie.features.home.presentation.HomeViewModel
@@ -40,6 +41,7 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
     }
     val context = LocalContext.current
     val moviesState = viewModel.moviesState.collectAsState()
+    val filterState = viewModel.currentFilter.collectAsState()
     Column(modifier = Modifier.fillMaxSize(),verticalArrangement = Arrangement.Top , horizontalAlignment = Alignment.CenterHorizontally) {
         Height(10.dp)
         ImagesSlider(
@@ -67,6 +69,13 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
                 fontFamily = fontFamilyOverPass,
                 style = TextStyle(color = MaterialTheme.colorScheme.onBackground, fontSize = 18.sp)
             )
+
+            HomeFilterButton(
+                selectedFilter = filterState.value
+            ){newFilter->
+                viewModel.clear()
+                viewModel.getTrendingMovies(newFilter , CURRENT_LANGUAGE)
+            }
         }
         HandleRequestStateUi(
             state = moviesState.value, modifier = Modifier

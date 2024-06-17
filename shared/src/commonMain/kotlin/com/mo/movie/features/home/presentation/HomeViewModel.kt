@@ -18,16 +18,18 @@ class HomeViewModel : BaseViewModel() {
     private val getTrendingUseCase: GetTrendingUseCase by inject()
     private var _moviesState: MutableStateFlow<BaseState<List<Movie>>> = MutableStateFlow(BaseState.Initial(emptyList()))
     val moviesState: StateFlow<BaseState<List<Movie>>> = _moviesState
-    var currentFilter = TrendingFilter.DAY
+    private var _currentFilter: MutableStateFlow<TrendingFilter> = MutableStateFlow(TrendingFilter.DAY)
+    val currentFilter: StateFlow<TrendingFilter> = _currentFilter
     private val _movies : ArrayList<Movie> = ArrayList(emptyList())
     val movies = _movies
     var job: Job? = null
     var currentPage = 1
     var totalPages: Int? = null
-    fun getTrendingMovies(filter: TrendingFilter = currentFilter, language: Languages = Languages.en) {
-        val isRequestOnGoing = _moviesState.value == BaseState.Loading && filter == currentFilter
+    fun getTrendingMovies(filter: TrendingFilter = currentFilter.value, language: Languages = Languages.en) {
+        val isRequestOnGoing = _moviesState.value == BaseState.Loading && filter == currentFilter.value
         val isLastPage = totalPages !=null && currentPage > totalPages!!
         if (isLastPage || isRequestOnGoing) return
+        _currentFilter.value = filter
         cancelRunningJob()
         job = viewModelScope.launch {
             if (totalPages == null)
