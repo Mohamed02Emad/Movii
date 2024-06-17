@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.mo.movie.android.CURRENT_LANGUAGE
 import com.mo.movie.android.core.navigation.fadeTransitionComposable
 import com.mo.movie.android.core.navigation.pushReplace
 import com.mo.movie.android.core.navigation.swipeTransitionComposable
@@ -23,6 +24,7 @@ import com.mo.movie.android.features.setup.onBoarding.screens.OnBoardingScreen
 import com.mo.movie.android.features.tvShows.presentation.TvShowsScreen
 import com.mo.movie.core.navigation.Screen
 import com.mo.movie.features.auth.presentation.AuthViewModel
+import com.mo.movie.features.home.presentation.HomeViewModel
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
 import kotlinx.coroutines.launch
@@ -73,7 +75,10 @@ fun NavHost(
             fadeTransitionComposable(
                 route = Screen.Home.route
             ) {
+                val viewModel: HomeViewModel = getViewModel()
                 HomeScreen(
+                    viewModel = viewModel,
+                    navController = navController,
                 )
             }
             fadeTransitionComposable(

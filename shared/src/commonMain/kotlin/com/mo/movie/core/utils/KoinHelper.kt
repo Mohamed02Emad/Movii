@@ -1,6 +1,7 @@
 package com.mo.movie.core.utils
 
 import com.mo.movie.di.baseModule.baseModule
+import com.mo.movie.di.homeModule.homeModule
 import com.mo.movie.di.platformModule.platformModule
 import com.mo.movie.di.settingsModule.settingsModule
 import com.mo.movie.di.setupModules.onBoardingModule
@@ -18,6 +19,7 @@ fun initKoin(nativeModule: Module? = null, appDeclaration: KoinAppDeclaration = 
         }
         modulesList.add(baseModule)
         modulesList.add(platformModule)
+        modulesList.add(homeModule)
         modulesList.add(settingsModule)
         modulesList.add(viewModelsModule)
         modulesList.add(onBoardingModule)

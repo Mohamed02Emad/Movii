@@ -43,5 +43,10 @@
     <string name="password_reset_successfully">Password reset successfully</string>
     <string name="dark_mode">DarkMode</string>
     <string name="language">Language</string>
-    <string name="your_web_client_id">462932603634-04fn3vglo50mbs9pd6qfll4c1fgsb3di.apps.googleusercontent.com</string>
+    <string name="your_web_client_id" translatable="false">462932603634-04fn3vglo50mbs9pd6qfll4c1fgsb3di.apps.googleusercontent.com</string>
+    <string name="see_whats_next">See What\'s Next</string>
+    <string name="watch_anytime">WATCH ANYWHERE. CANCEL ANYTIME</string>
+    <string name="trending">Trending</string>
+    <string name="today">Today</string>
+    <string name="weekly">This Week</string>
 </resources>

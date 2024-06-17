@@ -37,6 +37,7 @@ import java.util.Locale
 
 var IS_RTL: Boolean = false
 var IS_DARK_MODE: Boolean = false
+var CURRENT_LANGUAGE: Languages = Languages.system
 class MainActivity : ComponentActivity() {
 
     // notifications permission
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
             val darkMode = settingsViewModel.darkMode.collectAsState()
             IS_DARK_MODE = darkMode.value
             val language = settingsViewModel.language.collectAsState()
+            CURRENT_LANGUAGE = language.value
             val isRtl = getRtlMode(language.value)
             val direction = if (isRtl) LocalLayoutDirection provides LayoutDirection.Rtl else LocalLayoutDirection provides LayoutDirection.Ltr
             setAppLanguage(language.value)
