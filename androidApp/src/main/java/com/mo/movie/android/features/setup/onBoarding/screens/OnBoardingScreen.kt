@@ -32,10 +32,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mo.movie.android.IS_DARK_MODE
 import com.mo.movie.android.R
-import com.mo.movie.android.core.composables.VSpace
+import com.mo.movie.android.core.composables.Height
+import com.mo.movie.android.core.navigation.replaceStartDestination
 import com.mo.movie.android.features.setup.onBoarding.composables.LogoLayout
 import com.mo.movie.android.features.setup.onBoarding.composables.OnBoardingButtonsLayout
 import com.mo.movie.android.features.setup.onBoarding.composables.OnBoardingPage
+import com.mo.movie.core.navigation.Screen
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
 
@@ -70,7 +72,7 @@ fun OnBoardingScreen(
     ) {
         val pagerState = rememberPagerState { onBoardings.size }
         Column {
-            VSpace(height = 20.dp)
+            Height(height = 20.dp)
             Box(contentAlignment = Alignment.Center) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -110,7 +112,7 @@ fun OnBoardingScreen(
         }
         OnBoardingButtonsLayout(pagerState = pagerState, pagesCount = onBoardings.size) {
             viewModel.setOnBoardingFinished()
-//                navController.replaceStartDestination(Auth_LOGIN_ROUTE.name)
+            navController.replaceStartDestination(Screen.Auth)
         }
     }
     }

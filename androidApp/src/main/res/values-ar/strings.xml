@@ -9,6 +9,7 @@
     <string name="previous">السابق</string>
     <string name="get_started">ابدا</string>
     <string name="login">تسجيل دخول</string>
+    <string name="guest_login">الدخول كزائر</string>
     <string name="signUp">إنشاء حساب</string>
     <string name="email">البريد الالكتروني</string>
     <string name="password">كلمة المرور</string>

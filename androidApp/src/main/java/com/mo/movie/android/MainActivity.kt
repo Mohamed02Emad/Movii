@@ -4,7 +4,10 @@ import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -14,13 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.auth.api.identity.Identity
 import com.mo.movie.SharedViewModel
 import com.mo.movie.android.core.navigation.navhosts.NavHost
+import com.mo.movie.android.core.utils.UiUtils.showToast
+import com.mo.movie.android.features.auth.utils.GoogleAuthUiClient
 import com.mo.movie.android.theme.MyApplicationTheme
 import com.mo.movie.core.SharedStates
+import com.mo.movie.features.auth.presentation.AuthViewModel
 import com.mo.movie.features.more.settings.domain.models.Languages
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.getViewModel
@@ -37,6 +46,13 @@ class MainActivity : ComponentActivity() {
 //    }
 
     private val globalStates: SharedStates by inject()
+    private val googleAuthUiClient by lazy {
+        GoogleAuthUiClient(
+            context = applicationContext,
+            oneTapClient = Identity.getSignInClient(applicationContext)
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showSplash()
@@ -44,8 +60,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val sharedViewModel: SharedViewModel = globalStates.getSharedViewModel()
             val settingsViewModel: SettingsViewModel = getViewModel()
+            val authViewModel: AuthViewModel = getViewModel()
             runBlocking {
-                sharedViewModel.getStartDestination()
+                val isLoggedIn = googleAuthUiClient.getSignedInUser() != null
+                sharedViewModel.getStartDestination(isLoggedIn)
                 settingsViewModel.initData()
             }
             val startDestination = sharedViewModel.startDestination.collectAsState()
@@ -61,7 +79,46 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        NavHost(startDestination = startDestination.value , settingsViewModel = settingsViewModel)
+                        val launcher = rememberLauncherForActivityResult(
+                            contract = ActivityResultContracts.StartIntentSenderForResult(),
+                            onResult = { result ->
+                                if (result.resultCode == RESULT_OK) {
+                                    lifecycleScope.launch {
+                                        val signInResult = googleAuthUiClient.signInWithIntent(
+                                            intent = result.data ?: return@launch
+                                        )
+                                        authViewModel.onSignInResult(signInResult)
+                                        if (signInResult.data != null){
+                                            val isLoggedIn = googleAuthUiClient.getSignedInUser() != null
+                                            sharedViewModel.getStartDestination(isLoggedIn)
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                        NavHost(
+                            startDestination = startDestination.value,
+                            settingsViewModel = settingsViewModel,
+                            authViewModel = authViewModel,
+                            onSignInClicked = {
+                                lifecycleScope.launch {
+                                    val signInIntentSender = googleAuthUiClient.signIn()
+                                    launcher.launch(
+                                        IntentSenderRequest.Builder(
+                                            signInIntentSender ?: return@launch
+                                        ).build()
+                                    )
+
+                                }
+                            },
+                            onLogoutClicked = {
+                                    try {
+                                        googleAuthUiClient.signOut()
+                                    }catch (_:Exception){
+                                    }
+                            },
+                        )
+
                     }
                 }
             }
@@ -74,7 +131,7 @@ class MainActivity : ComponentActivity() {
             installSplashScreen()
         } else {
             runBlocking {
-                delay(600)
+                delay(400)
             }
         }
     }
