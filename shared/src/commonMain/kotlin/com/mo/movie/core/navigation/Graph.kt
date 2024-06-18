@@ -1,11 +1,8 @@
 package com.mo.movie.core.navigation
 
-sealed class Screen(val route: String) {
-    //example of arguments
-//    data class Detail(val id: Int) : Screen("detail/{id}") {
-//        fun createRoute(id: Int): String = route.replace("{id}", id.toString())
-//    }
-
+sealed class Screen(internal var _route: String) {
+    val route: String
+        get() = _route
     /**Setup and onboarding*/
     data object OnBoarding : Screen("onBoarding")
     data object Auth : Screen("auth")
@@ -16,4 +13,12 @@ sealed class Screen(val route: String) {
     data object Movies : Screen("movies")
     data object TvShows : Screen("tvShows")
     data object More : Screen("more")
+
+    /**other*/
+    data object Detail : Screen("detail/{id}") {
+        fun updateRoute(id: Int) {
+            _route = "detail/{id}"
+            _route = _route.replace("{id}", id.toString())
+        }
+    }
 }

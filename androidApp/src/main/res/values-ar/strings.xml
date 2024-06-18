@@ -52,5 +52,11 @@
     <string name="trending">رائج مؤخرا</string>
     <string name="today">يومي</string>
     <string name="weekly">اسبوعي</string>
+    <string name="try_again">حاول مجددا</string>
+    <string name="overview">نظرة عامة</string>
+    <string name="cast">طاقم العمل</string>
+    <string name="videos">مقاطع</string>
+    <string name="trailer">العرض التشويقي</string>
+
 
 </resources>

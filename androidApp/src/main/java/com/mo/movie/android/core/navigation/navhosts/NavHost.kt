@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.mo.movie.android.CURRENT_LANGUAGE
 import com.mo.movie.android.core.navigation.fadeTransitionComposable
 import com.mo.movie.android.core.navigation.pushReplace
 import com.mo.movie.android.core.navigation.swipeTransitionComposable
 import com.mo.movie.android.features.auth.presentation.pages.AuthScreen
+import com.mo.movie.android.features.details.DetailsScreen
 import com.mo.movie.android.features.home.presentation.HomeScreen
 import com.mo.movie.android.features.more.presentation.MoreScreen
 import com.mo.movie.android.features.movies.presentation.MoviesScreen
@@ -24,6 +24,7 @@ import com.mo.movie.android.features.setup.onBoarding.screens.OnBoardingScreen
 import com.mo.movie.android.features.tvShows.presentation.TvShowsScreen
 import com.mo.movie.core.navigation.Screen
 import com.mo.movie.features.auth.presentation.AuthViewModel
+import com.mo.movie.features.details.presentaion.DetailsViewModel
 import com.mo.movie.features.home.presentation.HomeViewModel
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
@@ -114,33 +115,17 @@ fun NavHost(
                 )
             }
 
-            // working
-//        swipeTransitionComposable(
-//            route = Screen.NotificationDetails().route,
-//        ) {
-//            val id = it.arguments?.getString("id") ?: "-1"
-//            NotificationDetailsScreen(
-//                navController = navController,
-//                id = id.toInt()
-//            )
-//        }
-
-            //not working
-//        this.fadeTransitionComposable(
-//            route = ,
-//            arguments = listOf(navArgument("params") {
-//                type = NavType.StringType
-//            }),
-//
-//            ) {
-//            val viewModel: ResetPasswordViewModel = getViewModel()
-//            val args = handleArgs<ResetPasswordScreenArgs>(it)
-//            ResetPasswordScreen(
-//                viewModel = viewModel,
-//                navController = navController,
-//                args = args
-//            )
-//        }
+            swipeTransitionComposable(
+                route = Screen.Detail.route,
+            ) {
+                val viewModel: DetailsViewModel = getViewModel()
+                val id = it.arguments?.getString("id") ?: "-1"
+                DetailsScreen(
+                    viewModel = viewModel,
+                    navController = navController,
+                    id = id.toInt()
+                )
+            }
         }
         Box(modifier = Modifier.align(Alignment.BottomCenter)) {
             BottomNavigationBar(navController = navController)

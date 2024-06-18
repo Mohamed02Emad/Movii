@@ -16,7 +16,7 @@ import org.koin.core.component.inject
 
 class HomeViewModel : BaseViewModel() {
     private val getTrendingUseCase: GetTrendingUseCase by inject()
-    private var _moviesState: MutableStateFlow<BaseState<List<Movie>>> = MutableStateFlow(BaseState.Initial(emptyList()))
+    private var _moviesState: MutableStateFlow<BaseState<List<Movie>>> = MutableStateFlow(BaseState.Initial)
     val moviesState: StateFlow<BaseState<List<Movie>>> = _moviesState
     private var _currentFilter: MutableStateFlow<TrendingFilter> = MutableStateFlow(TrendingFilter.DAY)
     val currentFilter: StateFlow<TrendingFilter> = _currentFilter
@@ -71,7 +71,7 @@ class HomeViewModel : BaseViewModel() {
         currentPage = 1
         totalPages = null
         _movies.clear()
-        _moviesState.value = BaseState.Initial(emptyList())
+        _moviesState.value = BaseState.Initial
         cancelRunningJob()
     }
 }

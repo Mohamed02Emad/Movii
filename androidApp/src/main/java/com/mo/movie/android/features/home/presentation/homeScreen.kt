@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import collapseHeightBy
 import com.mo.movie.android.CURRENT_LANGUAGE
-import com.mo.movie.android.IS_DARK_MODE
 import com.mo.movie.android.R
 import com.mo.movie.android.core.composables.HandleRequestStateUi
 import com.mo.movie.android.core.composables.Height
@@ -63,8 +62,7 @@ import verticalScrollListener
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
     LaunchedEffect(key1 = true) {
-        viewModel.clear()
-        viewModel.getTrendingMovies(language = CURRENT_LANGUAGE)
+        initData(viewModel)
     }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -140,10 +138,11 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
         Height(12.dp)
         HandleRequestStateUi(
             state = moviesState.value, modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            onTryAgain = { initData(viewModel) }
         ) {
             val movies = viewModel.movies
-            Box() {
+            Box {
                 LazyVerticalGrid(
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
@@ -191,4 +190,9 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
         }
     }
 
+}
+
+private fun initData(viewModel: HomeViewModel) {
+    viewModel.clear()
+    viewModel.getTrendingMovies(language = CURRENT_LANGUAGE)
 }

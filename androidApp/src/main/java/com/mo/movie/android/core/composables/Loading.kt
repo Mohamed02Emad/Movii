@@ -25,9 +25,9 @@ fun LoadingAnimation(
     indicatorSize: Dp = 45.dp,
     circleColors: List<Color> = listOf(
         MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.background,
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.background,
+        MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.background,
     ),

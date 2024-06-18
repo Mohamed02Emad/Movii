@@ -2,6 +2,7 @@ package com.mo.movie.di.viewModelsModule
 
 import com.mo.movie.SharedViewModel
 import com.mo.movie.features.auth.presentation.AuthViewModel
+import com.mo.movie.features.details.presentaion.DetailsViewModel
 import com.mo.movie.features.home.presentation.HomeViewModel
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
@@ -27,6 +28,9 @@ actual val viewModelsModule: Module = module {
     single {
         HomeViewModel()
     }
+    single {
+        DetailsViewModel()
+    }
 }
 
 object KoinHelper : KoinComponent {
@@ -35,5 +39,6 @@ object KoinHelper : KoinComponent {
     fun getSettingsViewModel() = get<SettingsViewModel>()
     fun AuthViewModel() = get<AuthViewModel>()
     fun HomeViewModel() = get<HomeViewModel>()
+    fun DetailsViewModel() = get<DetailsViewModel>()
 }
 

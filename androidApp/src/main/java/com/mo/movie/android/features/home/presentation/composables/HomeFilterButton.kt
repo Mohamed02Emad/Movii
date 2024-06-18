@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mo.movie.android.R
 import com.mo.movie.android.core.composables.Width
+import com.mo.movie.android.core.composables.text.AppText
 import com.mo.movie.android.theme.fontFamilyOverPass
 import com.mo.movie.features.home.domain.enums.TrendingFilter
 
@@ -51,7 +52,8 @@ fun HomeFilterButton(
         )
         Width(width = 4.dp)
         val secondSelectionColor = if (selectedFilter == TrendingFilter.WEEK) MaterialTheme.colorScheme.primary else Color.Transparent
-        Text(
+
+        AppText(
             modifier = Modifier
                 .clip(shape= shape)
                 .background(color = secondSelectionColor)
@@ -61,8 +63,6 @@ fun HomeFilterButton(
                     onFilterClicked(TrendingFilter.WEEK)
                 },
             text = context.getString(R.string.weekly),
-            fontFamily = fontFamilyOverPass,
-            style = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onPrimary)
         )
     }
 }

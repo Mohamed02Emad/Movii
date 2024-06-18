@@ -49,4 +49,9 @@
     <string name="trending">Trending</string>
     <string name="today">Today</string>
     <string name="weekly">Week</string>
+    <string name="try_again">Try Again</string>
+    <string name="overview">Overview</string>
+    <string name="cast">Cast</string>
+    <string name="videos">Videos</string>
+    <string name="trailer">Trailer</string>
 </resources>

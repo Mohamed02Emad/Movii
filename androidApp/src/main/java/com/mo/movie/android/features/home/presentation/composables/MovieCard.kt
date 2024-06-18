@@ -1,6 +1,7 @@
 package com.mo.movie.android.features.home.presentation.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,8 +34,10 @@ import coil.request.ImageRequest
 import com.mo.movie.android.R
 import com.mo.movie.android.core.composables.Height
 import com.mo.movie.android.core.composables.Width
+import com.mo.movie.android.core.navigation.push
+import com.mo.movie.android.core.utils.extentions.round
 import com.mo.movie.android.theme.fontFamilyOverPass
-import com.mo.movie.core.remote.BASE_URL
+import com.mo.movie.core.navigation.Screen
 import com.mo.movie.features.home.domain.models.Movie
 
 @Composable
@@ -47,6 +50,9 @@ fun MovieCard(
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .aspectRatio(1 / 1.85f)
             .clip(RoundedCornerShape(12.dp))
+            .clickable {
+                openMovieDetails(movie , navController)
+            }
             .background(MaterialTheme.colorScheme.secondaryContainer),
 
         ) {
@@ -125,7 +131,7 @@ fun MovieCard(
                 )
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = movie.voteAverage.toString(),
+                    text = movie.voteAverage.round(2).toString(),
                     maxLines = 1,
                     fontFamily = fontFamilyOverPass,
                     style = TextStyle(color = MaterialTheme.colorScheme.onPrimary, fontSize = 12.sp)
@@ -134,4 +140,10 @@ fun MovieCard(
 
         }
     }
+}
+
+fun openMovieDetails(movie: Movie, navController: NavHostController) {
+    val destination = Screen.Detail
+    destination.updateRoute(movie.id)
+    navController.push(destination , popUpTo = destination.route , inclusive = true)
 }

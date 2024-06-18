@@ -26,9 +26,7 @@ import io.ktor.util.InternalAPI
 import io.ktor.utils.io.charsets.Charsets
 import org.koin.core.component.KoinComponent
 
-//for this app iam going to use constant token
-const val token: String =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDQ5MjJmZTA3MThkNjViYWRmMTA2MTdjOGFhOGQzNCIsInN1YiI6IjY2NmViNzE4Mzg1NGMwYjc2NzdkYTYwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SHutPX2YN31LN_q3wV8DHBKmw_cjHGdFLraXhQp35MQ"
+const val token: String = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDQ5MjJmZTA3MThkNjViYWRmMTA2MTdjOGFhOGQzNCIsInN1YiI6IjY2NmViNzE4Mzg1NGMwYjc2NzdkYTYwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SHutPX2YN31LN_q3wV8DHBKmw_cjHGdFLraXhQp35MQ"
 @InternalAPI
 class KtorClient(
     val httpClient: HttpClient,
@@ -197,6 +195,7 @@ class KtorClient(
                 )
             }
         } catch (e: Exception) {
+            logit(e.message)
             RequestState.Error(
                 message = "Server error",
                 statusCode = 500,

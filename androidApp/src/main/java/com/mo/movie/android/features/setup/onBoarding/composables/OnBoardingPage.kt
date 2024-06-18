@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.mo.movie.android.core.composables.text.MediumText
+import com.mo.movie.android.core.composables.text.AppText
 
 @Composable
 fun OnBoardingPage(modifier: Modifier = Modifier, image: Int, text: String) {
@@ -28,7 +28,7 @@ fun OnBoardingPage(modifier: Modifier = Modifier, image: Int, text: String) {
                 .height(260.dp)
         )
         Row(modifier = Modifier.fillMaxWidth() , horizontalArrangement = Arrangement.Center) {
-            MediumText(text = text , modifier = Modifier
+            AppText(text = text , modifier = Modifier
                 .padding(horizontal = 16.dp) )
         }
         Spacer(modifier = Modifier.height(10.dp))

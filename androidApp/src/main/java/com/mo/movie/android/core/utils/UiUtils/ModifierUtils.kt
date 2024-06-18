@@ -1,3 +1,5 @@
+import android.graphics.RenderEffect
+import android.graphics.Shader
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -18,7 +20,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.dp
-import com.mo.movie.core.utils.logit
+
 
 enum class ButtonState { Pressed, Idle }
 
