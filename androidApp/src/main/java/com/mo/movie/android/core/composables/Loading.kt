@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoadingAnimation(
+    modifier: Modifier = Modifier,
     indicatorSize: Dp = 45.dp,
     circleColors: List<Color> = listOf(
         MaterialTheme.colorScheme.primary,
@@ -49,7 +50,7 @@ fun LoadingAnimation(
     )
 
     CircularProgressIndicator(
-        modifier = Modifier
+        modifier = modifier
             .padding(margin)
             .size(size = indicatorSize)
             .rotate(degrees = rotateAnimation)

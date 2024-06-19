@@ -74,6 +74,7 @@ fun MoviesScreen(navController: NavHostController, viewModel: MoviesViewModel) {
     }
     Scaffold(
         modifier = Modifier
+            .padding(bottom = 44.dp)
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -115,6 +116,7 @@ fun MoviesScreen(navController: NavHostController, viewModel: MoviesViewModel) {
                                     )
                                 },
                                 selectedItem = selectedItem,
+                                itemTextColor = backgroundLight,
                                 hint = "pick one"
                             ) { newSelectedItem ->
                                 selectedItem = newSelectedItem
@@ -163,7 +165,7 @@ fun MoviesScreen(navController: NavHostController, viewModel: MoviesViewModel) {
                 if (showUpButton)
                     Icon(
                         modifier = Modifier
-                            .padding(horizontal = 12.dp, vertical = 44.dp + 24.dp)
+                            .padding(horizontal = 12.dp, vertical = 24.dp)
                             .align(Alignment.BottomEnd)
                             .size(40.dp)
                             .clip(RoundedCornerShape(40.dp))

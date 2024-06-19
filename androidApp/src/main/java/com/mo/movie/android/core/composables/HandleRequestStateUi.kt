@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Recycling
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,12 +58,10 @@ fun <T> HandleRequestStateUi(
         }
 
         is BaseState.Success, is BaseState.PagingLoading -> {
-            Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier.weight(1f)) {
+            Box(modifier = modifier) {
                     child()
-                }
                 if (state is BaseState.PagingLoading) {
-                    LoadingAnimation(margin = PaddingValues(bottom = 20.dp), indicatorSize = 26.dp)
+                    LoadingAnimation(modifier=Modifier.padding(bottom = 8.dp).align(Alignment.BottomCenter) ,margin = PaddingValues(bottom = 20.dp), indicatorSize = 26.dp)
                 }
             }
         }

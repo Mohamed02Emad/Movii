@@ -12,11 +12,11 @@ val secondaryLight = Color(0xFFDA4444)
 val onPrimaryDark = Color(0xFFDFF5F7)
 val onPrimaryLight = Color(0xFF0E0E0E)
 
-val backgroundDark = Color(0xFF0F0F0F)
+val backgroundDark = Color(0xFF1B1B1B)
 val backgroundLight = Color(0xFFF8F8F8)
 
 val bottomNavigationDark = Color(0xFF000000)
-val bottomNavigationLight = Color(0xFFCECCCC)
+val bottomNavigationLight = Color(0xFFF0EEEE)
 
 
 val rippleColor = Color(0xFF15373A)
