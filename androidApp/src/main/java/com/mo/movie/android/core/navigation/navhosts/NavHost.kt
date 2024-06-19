@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.mo.movie.SharedViewModel
@@ -27,6 +26,7 @@ import com.mo.movie.features.auth.presentation.AuthViewModel
 import com.mo.movie.features.details.presentaion.DetailsViewModel
 import com.mo.movie.features.home.presentation.HomeViewModel
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
+import com.mo.movie.features.movies.presentation.MoviesViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -90,7 +90,10 @@ fun NavHost(
             fadeTransitionComposable(
                 route = Screen.Movies.route
             ) {
+                val viewModel: MoviesViewModel = getViewModel()
                 MoviesScreen(
+                    viewModel = viewModel,
+                    navController =navController
                 )
             }
             fadeTransitionComposable(
