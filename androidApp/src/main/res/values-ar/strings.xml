@@ -58,6 +58,8 @@
     <string name="videos">مقاطع</string>
     <string name="trailer">العرض التشويقي</string>
     <string name="recommendations">ترشيحات</string>
+    <string name="discover_movies">استكشف الافلام</string>
+    <string name="sort">رتب حسب</string>
 
 
 </resources>

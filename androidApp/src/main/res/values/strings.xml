@@ -55,4 +55,6 @@
     <string name="videos">Videos</string>
     <string name="trailer">Trailer</string>
     <string name="recommendations">Recommendations</string>
+    <string name="discover_movies">Discover Movies</string>
+    <string name="sort">sort</string>
 </resources>
