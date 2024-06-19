@@ -2,7 +2,6 @@ package com.mo.movie.features.details.presentaion
 
 import com.mo.movie.core.base.BaseState
 import com.mo.movie.core.base.BaseViewModel
-import com.mo.movie.core.utils.logit
 import com.mo.movie.features.details.domain.enums.MovieShowType
 import com.mo.movie.features.details.domain.models.Video
 import com.mo.movie.features.details.domain.models.responses.CastResponse
@@ -11,8 +10,11 @@ import com.mo.movie.features.details.domain.usecases.GetCastParams
 import com.mo.movie.features.details.domain.usecases.GetCastUseCase
 import com.mo.movie.features.details.domain.usecases.GetMovieDetailParams
 import com.mo.movie.features.details.domain.usecases.GetMovieDetailsUseCase
+import com.mo.movie.features.details.domain.usecases.GetRecommendationsParams
+import com.mo.movie.features.details.domain.usecases.GetRecommendationsUseCase
 import com.mo.movie.features.details.domain.usecases.GetVideosParams
 import com.mo.movie.features.details.domain.usecases.GetVideosUseCase
+import com.mo.movie.features.home.domain.models.Movie
 import com.mo.movie.features.more.settings.domain.models.Languages
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +27,7 @@ class DetailsViewModel : BaseViewModel() {
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase by inject()
     private val getCastUseCase: GetCastUseCase by inject()
     private val getVideosUseCase: GetVideosUseCase by inject()
+    private val getRecommendationsUseCase: GetRecommendationsUseCase by inject()
 
     /** request states */
     private var _movieState: MutableStateFlow<BaseState<MovieDetailsResponse>> = MutableStateFlow(BaseState.Initial)
@@ -36,6 +39,10 @@ class DetailsViewModel : BaseViewModel() {
     private var _videosState: MutableStateFlow<BaseState<List<Video>?>> = MutableStateFlow(BaseState.Initial)
     val videosState: StateFlow<BaseState<List<Video>?>> = _videosState
 
+    private var _recommendationsState: MutableStateFlow<BaseState<List<Movie>?>> =
+        MutableStateFlow(BaseState.Initial)
+    val recommendationsState: StateFlow<BaseState<List<Movie>?>> = _recommendationsState
+
     /** data states */
     private var _movieDetails: MutableStateFlow<MovieDetailsResponse?> = MutableStateFlow(null)
     val movieDetails : StateFlow<MovieDetailsResponse?> = _movieDetails
@@ -45,6 +52,9 @@ class DetailsViewModel : BaseViewModel() {
 
     private var _videos: MutableStateFlow<List<Video>?> = MutableStateFlow(null)
     val videos : StateFlow<List<Video>?> = _videos
+
+    private var _recommendations: MutableStateFlow<List<Movie>?> = MutableStateFlow(null)
+    val recommendations: StateFlow<List<Movie>?> = _recommendations
 
     /** requests */
     fun getTrendingMovies(id: Int, language: Languages = Languages.en) {
@@ -109,6 +119,31 @@ class DetailsViewModel : BaseViewModel() {
         }
     }
 
+    fun getRecommendations(
+        id: Int,
+        language: Languages,
+        type: MovieShowType = MovieShowType.MOVIE,
+    ) {
+        val isRequestOnGoing = _recommendationsState.value == BaseState.Loading
+        if (isRequestOnGoing) return
+        viewModelScope.launch {
+            _recommendationsState.value = BaseState.Loading
+            val response = getRecommendationsUseCase(
+                GetRecommendationsParams(id = id, type = type, language = language)
+            )
+            handleResponse(
+                responseState = response,
+                onSuccess = {
+                    _recommendations.value = it.results
+                    _recommendationsState.value = BaseState.Success(it.results)
+                },
+                onError = {
+                    _recommendationsState.value = BaseState.Error(it)
+                }
+            )
+        }
+    }
+
     /** methods */
     fun clear() {
         _movieDetails.value = null
@@ -117,5 +152,7 @@ class DetailsViewModel : BaseViewModel() {
         _castState.value = BaseState.Initial
         _videos.value = null
         _videosState.value = BaseState.Initial
+        _recommendations.value = null
+        _recommendationsState.value = BaseState.Initial
     }
 }

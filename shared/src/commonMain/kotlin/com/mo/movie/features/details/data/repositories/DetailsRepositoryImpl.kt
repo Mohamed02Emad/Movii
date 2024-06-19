@@ -9,7 +9,9 @@ import com.mo.movie.features.details.domain.models.responses.VideosResponse
 import com.mo.movie.features.details.domain.repositories.DetailsRepository
 import com.mo.movie.features.details.domain.usecases.GetCastParams
 import com.mo.movie.features.details.domain.usecases.GetMovieDetailParams
+import com.mo.movie.features.details.domain.usecases.GetRecommendationsParams
 import com.mo.movie.features.details.domain.usecases.GetVideosParams
+import com.mo.movie.features.home.domain.models.responses.MoviesResponse
 import org.koin.core.component.KoinComponent
 
 class DetailsRepositoryImpl(
@@ -27,5 +29,9 @@ class DetailsRepositoryImpl(
 
     override suspend fun getVideos(params: GetVideosParams): RequestState<VideosResponse> {
         return remote.getVideos(params = params)
+    }
+
+    override suspend fun getRecommendations(params: GetRecommendationsParams): RequestState<MoviesResponse> {
+        return remote.getRecommendations(params = params)
     }
 }

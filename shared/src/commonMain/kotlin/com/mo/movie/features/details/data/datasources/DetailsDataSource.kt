@@ -7,7 +7,9 @@ import com.mo.movie.features.details.domain.models.responses.MovieDetailsRespons
 import com.mo.movie.features.details.domain.models.responses.VideosResponse
 import com.mo.movie.features.details.domain.usecases.GetCastParams
 import com.mo.movie.features.details.domain.usecases.GetMovieDetailParams
+import com.mo.movie.features.details.domain.usecases.GetRecommendationsParams
 import com.mo.movie.features.details.domain.usecases.GetVideosParams
+import com.mo.movie.features.home.domain.models.responses.MoviesResponse
 import com.mo.movie.features.home.domain.usecases.GetTrendingParams
 import io.ktor.util.InternalAPI
 import org.koin.core.component.KoinComponent
@@ -16,6 +18,7 @@ interface DetailsDataSource {
     suspend fun getMovieDetails(params: GetMovieDetailParams): RequestState<MovieDetailsResponse>
     suspend fun getCast(params: GetCastParams): RequestState<CastResponse>
     suspend fun getVideos(params: GetVideosParams): RequestState<VideosResponse>
+    suspend fun getRecommendations(params: GetRecommendationsParams): RequestState<MoviesResponse>
 }
 
 @InternalAPI
@@ -54,6 +57,19 @@ class DetailsDataSourceImpl(
                 url = url,
             )
             httpClient.handleRequestState<VideosResponse>(response)
+        } catch (e: Exception) {
+            RequestState.Error(message = e.message.toString())
+        }
+    }
+
+    override suspend fun getRecommendations(params: GetRecommendationsParams): RequestState<MoviesResponse> {
+        return try {
+            val url =
+                "${params.type.name.lowercase()}/${params.id}/recommendations?page=1&language=${params.language.name}"
+            val response = httpClient.get(
+                url = url,
+            )
+            httpClient.handleRequestState<MoviesResponse>(response)
         } catch (e: Exception) {
             RequestState.Error(message = e.message.toString())
         }

@@ -48,6 +48,7 @@ import com.mo.movie.android.core.composables.buttons.BackButton
 import com.mo.movie.android.core.composables.text.AppText
 import com.mo.movie.android.core.navigation.pop
 import com.mo.movie.android.features.details.composables.RateComposable
+import com.mo.movie.android.features.home.presentation.composables.MovieCard
 import com.mo.movie.android.theme.backgroundLight
 import com.mo.movie.core.remote.IMAGES_BASE_URL
 import com.mo.movie.features.details.presentaion.DetailsViewModel
@@ -62,14 +63,14 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
     val movieDetails = viewModel.movieDetails.collectAsState().value
     val cast = viewModel.cast.collectAsState().value
     val videos = viewModel.videos.collectAsState().value
+    val recommendations = viewModel.recommendations.collectAsState().value
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        HandleRequestStateUi(state = movieState.value) {
+        HandleRequestStateUi(modifier = Modifier.fillMaxSize(),state = movieState.value) {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
@@ -360,6 +361,39 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
                         }
                     }
                 }
+                item {
+                    recommendations?.let { recommendationsList ->
+                        Column {
+                            Height(height = 12.dp)
+                            AppText(
+                                modifier = Modifier.padding(horizontal = 12.dp),
+                                text = context.getString(R.string.recommendations),
+                            )
+                            Height(height = 6.dp)
+                            LazyRow(modifier = Modifier.padding(start = 1.dp)) {
+                                item {
+                                    Width(width = 6.dp)
+                                }
+                                items(recommendationsList.size) { index ->
+                                    val movie = recommendationsList[index]
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(start = 6.dp, end = 6.dp, bottom = 8.dp)
+                                            .width(185.dp)
+                                    ) {
+                                        MovieCard(navController = navController, movie = movie )
+                                    }
+                                }
+                                item {
+                                    Width(width = 6.dp)
+                                }
+                            }
+                        }
+                    }
+                }
+                item{
+                    Height(height = 20.dp)
+                }
             }
         }
         Height(height = 8.dp)
@@ -381,4 +415,5 @@ private fun initData(id: Int, viewModel: DetailsViewModel) {
     viewModel.getTrendingMovies(id, CURRENT_LANGUAGE)
     viewModel.getCast(id)
     viewModel.getVideos(id)
+    viewModel.getRecommendations(id , language = CURRENT_LANGUAGE)
 }

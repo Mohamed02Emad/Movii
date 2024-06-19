@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.mo.movie.SharedViewModel
 import com.mo.movie.android.core.navigation.fadeTransitionComposable
 import com.mo.movie.android.core.navigation.pushReplace
 import com.mo.movie.android.core.navigation.swipeTransitionComposable
@@ -38,14 +40,16 @@ fun NavHost(
     authViewModel: AuthViewModel,
     onSignInClicked: () -> Unit,
     onLogoutClicked: suspend () -> Unit,
+    sharedViewModel: SharedViewModel,
 ) {
+//    val isNavBarVisibile = sharedViewModel.isNavBarVisible.collectAsState()
     val scope = rememberCoroutineScope()
-
     val navController = rememberNavController()
     Box {
+//        val padding = if(isNavBarVisibile.value) 44.dp else 0.dp
         NavHost(
             modifier = Modifier
-                .padding(bottom = 44.dp)
+//                .padding(bottom = padding)
                 .fillMaxSize(),
             navController = navController,
             startDestination = startDestination?.route ?: Screen.OnBoarding.route
@@ -128,7 +132,7 @@ fun NavHost(
             }
         }
         Box(modifier = Modifier.align(Alignment.BottomCenter)) {
-            BottomNavigationBar(navController = navController)
+            BottomNavigationBar(navController = navController , sharedViewModel = sharedViewModel)
         }
     }
 }

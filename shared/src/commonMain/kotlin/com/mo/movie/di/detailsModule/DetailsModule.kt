@@ -6,6 +6,7 @@ import com.mo.movie.features.details.data.repositories.DetailsRepositoryImpl
 import com.mo.movie.features.details.domain.repositories.DetailsRepository
 import com.mo.movie.features.details.domain.usecases.GetCastUseCase
 import com.mo.movie.features.details.domain.usecases.GetMovieDetailsUseCase
+import com.mo.movie.features.details.domain.usecases.GetRecommendationsUseCase
 import com.mo.movie.features.details.domain.usecases.GetVideosUseCase
 import com.mo.movie.features.home.data.repositories.HomeRepositoryImpl
 import com.mo.movie.features.home.domain.repositories.HomeRepository
@@ -24,4 +25,5 @@ val detailsModule = module {
     single { GetMovieDetailsUseCase(get()) }
     single { GetCastUseCase(get()) }
     single { GetVideosUseCase(get()) }
+    single { GetRecommendationsUseCase(get()) }
 }

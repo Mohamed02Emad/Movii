@@ -21,7 +21,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.identity.Identity
 import com.mo.movie.SharedViewModel
 import com.mo.movie.android.core.navigation.navhosts.NavHost
-import com.mo.movie.android.core.utils.UiUtils.showToast
 import com.mo.movie.android.features.auth.utils.GoogleAuthUiClient
 import com.mo.movie.android.theme.MyApplicationTheme
 import com.mo.movie.core.SharedStates
@@ -101,6 +100,7 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             startDestination = startDestination.value,
                             settingsViewModel = settingsViewModel,
+                            sharedViewModel = sharedViewModel,
                             authViewModel = authViewModel,
                             onSignInClicked = {
                                 lifecycleScope.launch {

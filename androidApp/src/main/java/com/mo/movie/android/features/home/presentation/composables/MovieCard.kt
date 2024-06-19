@@ -145,5 +145,5 @@ fun MovieCard(
 fun openMovieDetails(movie: Movie, navController: NavHostController) {
     val destination = Screen.Detail
     destination.updateRoute(movie.id)
-    navController.push(destination , popUpTo = destination.route , inclusive = true)
+    navController.push(destination )
 }
