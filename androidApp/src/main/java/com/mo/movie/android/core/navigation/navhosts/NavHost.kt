@@ -3,13 +3,11 @@ package com.mo.movie.android.core.navigation.navhosts
 import BottomNavigationBar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.mo.movie.SharedViewModel
@@ -42,14 +40,11 @@ fun NavHost(
     onLogoutClicked: suspend () -> Unit,
     sharedViewModel: SharedViewModel,
 ) {
-//    val isNavBarVisibile = sharedViewModel.isNavBarVisible.collectAsState()
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
     Box {
-//        val padding = if(isNavBarVisibile.value) 44.dp else 0.dp
         NavHost(
             modifier = Modifier
-//                .padding(bottom = padding)
                 .fillMaxSize(),
             navController = navController,
             startDestination = startDestination?.route ?: Screen.OnBoarding.route

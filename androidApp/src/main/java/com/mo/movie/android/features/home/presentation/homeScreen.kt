@@ -167,7 +167,7 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
                 if (showUpButton)
                     Icon(
                         modifier = Modifier
-                            .padding(horizontal = 12.dp , vertical = 24.dp)
+                            .padding(horizontal = 12.dp , vertical = 44.dp+24.dp)
                             .align(Alignment.BottomEnd)
                             .size(40.dp)
                             .clip(RoundedCornerShape(40.dp))

@@ -1,6 +1,5 @@
 package com.mo.movie.android.features.details
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -23,6 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -47,6 +50,7 @@ import com.mo.movie.android.core.composables.YoutubeView
 import com.mo.movie.android.core.composables.buttons.BackButton
 import com.mo.movie.android.core.composables.text.AppText
 import com.mo.movie.android.core.navigation.pop
+import com.mo.movie.android.core.utils.UiUtils.showToast
 import com.mo.movie.android.features.details.composables.RateComposable
 import com.mo.movie.android.features.home.presentation.composables.MovieCard
 import com.mo.movie.android.theme.backgroundLight
@@ -64,6 +68,17 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
     val cast = viewModel.cast.collectAsState().value
     val videos = viewModel.videos.collectAsState().value
     val recommendations = viewModel.recommendations.collectAsState().value
+    var screenVideosState by remember {
+        mutableStateOf(true)
+    }
+    navController.addOnDestinationChangedListener { _, destination, arguments ->
+        val idFromDestination = arguments?.getString("id") ?: "-1"
+        screenVideosState = if (idFromDestination == id.toString()) {
+            true
+        } else {
+            false
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -223,6 +238,7 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
                                     text = context.getString(R.string.trailer),
                                 )
                                 Height(height = 6.dp)
+                                if(screenVideosState)
                                 YoutubeView(
                                     modifier = Modifier
                                         .padding(horizontal = 16.dp)
@@ -339,6 +355,7 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
                                             .padding(start = 6.dp, end = 6.dp, bottom = 8.dp)
                                             .width(320.dp)
                                     ) {
+                                        if(screenVideosState)
                                         YoutubeView(
                                             modifier = Modifier
                                                 .width(320.dp)
