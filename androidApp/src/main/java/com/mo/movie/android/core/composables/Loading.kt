@@ -5,6 +5,8 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,12 +25,13 @@ fun LoadingAnimation(
     indicatorSize: Dp = 45.dp,
     circleColors: List<Color> = listOf(
         MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.background,
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.background,
+        MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.background,
     ),
+    margin : PaddingValues = PaddingValues(0.dp),
     animationDuration: Int = 360,
 ) {
 
@@ -47,6 +50,7 @@ fun LoadingAnimation(
 
     CircularProgressIndicator(
         modifier = Modifier
+            .padding(margin)
             .size(size = indicatorSize)
             .rotate(degrees = rotateAnimation)
             .border(

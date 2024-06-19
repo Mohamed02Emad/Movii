@@ -21,7 +21,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.identity.Identity
 import com.mo.movie.SharedViewModel
 import com.mo.movie.android.core.navigation.navhosts.NavHost
-import com.mo.movie.android.core.utils.UiUtils.showToast
 import com.mo.movie.android.features.auth.utils.GoogleAuthUiClient
 import com.mo.movie.android.theme.MyApplicationTheme
 import com.mo.movie.core.SharedStates
@@ -37,6 +36,7 @@ import java.util.Locale
 
 var IS_RTL: Boolean = false
 var IS_DARK_MODE: Boolean = false
+var CURRENT_LANGUAGE: Languages = Languages.system
 class MainActivity : ComponentActivity() {
 
     // notifications permission
@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
             val darkMode = settingsViewModel.darkMode.collectAsState()
             IS_DARK_MODE = darkMode.value
             val language = settingsViewModel.language.collectAsState()
+            CURRENT_LANGUAGE = language.value
             val isRtl = getRtlMode(language.value)
             val direction = if (isRtl) LocalLayoutDirection provides LayoutDirection.Rtl else LocalLayoutDirection provides LayoutDirection.Ltr
             setAppLanguage(language.value)
@@ -99,6 +100,7 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             startDestination = startDestination.value,
                             settingsViewModel = settingsViewModel,
+                            sharedViewModel = sharedViewModel,
                             authViewModel = authViewModel,
                             onSignInClicked = {
                                 lifecycleScope.launch {

@@ -10,8 +10,15 @@ import androidx.compose.ui.unit.dp
 /**
  Toast
   **/
+
+private var toast: Toast? = null
+
 fun showToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    toast?.let {
+        toast?.cancel()
+    }
+    toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
+    toast?.show()
 }
 fun String.showToast(context: Context) {
     showToast(context, this)

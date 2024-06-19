@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mo.movie.android.core.AppMainRadius
-import com.mo.movie.android.core.composables.text.MediumText
+import com.mo.movie.android.core.composables.text.AppText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,7 +89,7 @@ fun AppTextField(
                 } else null
             },
             shape = shape,
-            placeholder = { MediumText(placeHolder, color = hintColor) },
+            placeholder = { AppText(text = placeHolder, fontColor = hintColor) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 containerColor = backgroundColor,
                 focusedBorderColor = focusedBorderColor,

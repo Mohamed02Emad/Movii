@@ -22,6 +22,7 @@ private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,
     secondary = secondaryDark,
     background = backgroundDark,
+    secondaryContainer = bottomNavigationDark,
     //text
     onPrimary = onPrimaryDark,
     surface = rippleColor
@@ -31,7 +32,8 @@ private val LightColorScheme = lightColorScheme(
     primary = primaryLight,
     secondary = secondaryLight,
     background = backgroundLight,
-    //text
+    secondaryContainer = bottomNavigationLight,
+            //text
     onPrimary = onPrimaryLight,
     surface = rippleColor
 

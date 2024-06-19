@@ -2,6 +2,8 @@ package com.mo.movie.di.viewModelsModule
 
 import com.mo.movie.SharedViewModel
 import com.mo.movie.features.auth.presentation.AuthViewModel
+import com.mo.movie.features.details.presentaion.DetailsViewModel
+import com.mo.movie.features.home.presentation.HomeViewModel
 import com.mo.movie.features.more.settings.presentation.SettingsViewModel
 import com.mo.movie.features.onBoarding.presentation.OnBoardingViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,5 +24,11 @@ actual val viewModelsModule: Module = module {
     }
     viewModel {
         AuthViewModel()
+    }
+    viewModel {
+        HomeViewModel()
+    }
+    viewModel {
+        DetailsViewModel()
     }
 }

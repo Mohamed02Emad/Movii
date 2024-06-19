@@ -53,6 +53,12 @@ dependencies {
     /**system ui helper**/
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
 
+    /**youtube view*/
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
+    /**collapsing tool bar*/
+    implementation("me.onebone:toolbar-compose:2.3.5")
+
     /**Splash Api**/
     implementation(libs.splash.api)
 

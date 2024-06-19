@@ -46,4 +46,18 @@
 
     <string name="dark_mode">الوضع المظلم</string>
     <string name="language">اللغة</string>
+
+    <string name="see_whats_next">شاهد ماذا بعد</string>
+    <string name="watch_anytime">شاهد في اي مكان ، الغي في اي وقت</string>
+    <string name="trending">رائج مؤخرا</string>
+    <string name="today">يومي</string>
+    <string name="weekly">اسبوعي</string>
+    <string name="try_again">حاول مجددا</string>
+    <string name="overview">نظرة عامة</string>
+    <string name="cast">طاقم العمل</string>
+    <string name="videos">مقاطع</string>
+    <string name="trailer">العرض التشويقي</string>
+    <string name="recommendations">ترشيحات</string>
+
+
 </resources>

@@ -4,6 +4,7 @@ import com.mo.movie.core.SharedStates
 import com.mo.movie.core.base.BaseResponse
 import com.mo.movie.core.base.RequestState
 import com.mo.movie.core.local.prefrences.AppPreferences
+import com.mo.movie.core.utils.logit
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
@@ -25,9 +26,7 @@ import io.ktor.util.InternalAPI
 import io.ktor.utils.io.charsets.Charsets
 import org.koin.core.component.KoinComponent
 
-//for this app iam going to use constant token
-const val token: String =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDQ5MjJmZTA3MThkNjViYWRmMTA2MTdjOGFhOGQzNCIsInN1YiI6IjY2NmViNzE4Mzg1NGMwYjc2NzdkYTYwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SHutPX2YN31LN_q3wV8DHBKmw_cjHGdFLraXhQp35MQ"
+const val token: String = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDQ5MjJmZTA3MThkNjViYWRmMTA2MTdjOGFhOGQzNCIsInN1YiI6IjY2NmViNzE4Mzg1NGMwYjc2NzdkYTYwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SHutPX2YN31LN_q3wV8DHBKmw_cjHGdFLraXhQp35MQ"
 @InternalAPI
 class KtorClient(
     val httpClient: HttpClient,
@@ -38,7 +37,7 @@ class KtorClient(
         url: String,
 //                           token: String? = null
     ): HttpResponse {
-        return httpClient.get("$BaseUrl$url") {
+        return httpClient.get("$BASE_URL$url") {
             headers {
                 append(HttpHeaders.Accept, ContentType.Application.Json.toString())
                 append(HttpHeaders.Authorization, token)
@@ -51,7 +50,7 @@ class KtorClient(
 //        token: String? = null,
         body: Any? = null,
     ): HttpResponse {
-        return httpClient.post("$BaseUrl$url") {
+        return httpClient.post("$BASE_URL$url") {
             headers {
                     append(HttpHeaders.Authorization, token)
             }
@@ -69,7 +68,7 @@ class KtorClient(
         body: Map<String, String>,
         multipartList: Map<String , ByteArray>
     ): HttpResponse {
-        return httpClient.post("$BaseUrl$url") {
+        return httpClient.post("$BASE_URL$url") {
             headers {
 //                token?.let { append(HttpHeaders.Authorization, "Bearer $it") }
                 append(HttpHeaders.Authorization, token)
@@ -102,7 +101,7 @@ class KtorClient(
 //        token: String? = null,
         body: Any? = null,
     ): HttpResponse {
-        return httpClient.put("$BaseUrl$url") {
+        return httpClient.put("$BASE_URL$url") {
             headers {
                 append(HttpHeaders.Accept, ContentType.Application.Json.toString())
 //                token?.let {
@@ -123,7 +122,7 @@ class KtorClient(
         body: Map<String, String>,
         multipartList: Map<String , ByteArray>
     ): HttpResponse {
-        return httpClient.put("$BaseUrl$url") {
+        return httpClient.put("$BASE_URL$url") {
             headers {
 //                token?.let { append(HttpHeaders.Authorization, "Bearer $it") }
                 append(HttpHeaders.Authorization, token)
@@ -155,7 +154,7 @@ class KtorClient(
     suspend inline fun delete(url: String,
 //                              token: String? = null
     ): HttpResponse {
-        return httpClient.delete("$BaseUrl$url") {
+        return httpClient.delete("$BASE_URL$url") {
             headers {
                 append(HttpHeaders.Accept, ContentType.Application.Json.toString())
                 append(HttpHeaders.Authorization, token)
@@ -196,6 +195,7 @@ class KtorClient(
                 )
             }
         } catch (e: Exception) {
+            logit(e.message)
             RequestState.Error(
                 message = "Server error",
                 statusCode = 500,

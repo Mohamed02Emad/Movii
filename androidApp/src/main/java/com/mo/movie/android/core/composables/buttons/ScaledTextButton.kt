@@ -24,8 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mo.movie.android.core.composables.text.MediumText
 import com.mo.movie.android.core.AppMainRadius
+import com.mo.movie.android.core.composables.text.AppText
 import kotlinx.coroutines.launch
 
 @Composable
@@ -83,7 +83,7 @@ fun ScaledTextButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            MediumText(text = text)
+            AppText(text = text)
         }
     }
 }

@@ -12,12 +12,19 @@ class SharedViewModel : BaseViewModel(), KoinComponent {
 
 //    private val getGuestLogInUseCase: GetGuestLogInUseCase by inject()
     private val getOnBoardingFinishedUseCase: GetOnBoardingFinishedUseCase by inject()
+
     private var _startDestination = MutableStateFlow<Screen?>(null)
     val startDestination: StateFlow<Screen?> = _startDestination
+
+    private var _isNavBarVisible = MutableStateFlow<Boolean>(false)
+    val isNavBarVisible: StateFlow<Boolean> = _isNavBarVisible
+
     private var _isGuest = MutableStateFlow(false)
     val isGuest: StateFlow<Boolean> = _isGuest
 
-
+    fun setNavBarVisibility(isVisible: Boolean) {
+        _isNavBarVisible.value = isVisible
+    }
 //    init {
 //        runBlocking {
 //            _isGuest.value = getGuestLogInUseCase()
