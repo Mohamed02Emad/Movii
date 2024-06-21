@@ -33,7 +33,6 @@ import com.mo.movie.android.theme.backgroundLight
 @Composable
 fun ButtonWithIcon(
     title: String,
-    painter: Painter,
     iconSize: Dp = 24.dp,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(12.dp),
@@ -42,6 +41,7 @@ fun ButtonWithIcon(
     buttonColor : Color = MaterialTheme.colorScheme.primary,
     isBordered : Boolean =false,
     iconTint : Color? = null,
+    painter: Painter?= null,
     onClick: () -> Unit,
 ) {
     Button(
@@ -71,16 +71,18 @@ fun ButtonWithIcon(
                 )
             )
             Width(width = 8.dp)
-            Image(
-                painter = painter,
-                contentDescription = "google",
-                modifier = Modifier
-                    .size(iconSize)
-                    .clip(
-                        RoundedCornerShape(35.dp)
-                    ),
-                colorFilter = if(iconTint == null ) null else ColorFilter.tint(color = iconTint)
-            )
+            painter?.let {
+                Image(
+                    painter = painter,
+                    contentDescription = "icon",
+                    modifier = Modifier
+                        .size(iconSize)
+                        .clip(
+                            RoundedCornerShape(35.dp)
+                        ),
+                    colorFilter = if (iconTint == null) null else ColorFilter.tint(color = iconTint)
+                )
+            }
         }
     }
 }

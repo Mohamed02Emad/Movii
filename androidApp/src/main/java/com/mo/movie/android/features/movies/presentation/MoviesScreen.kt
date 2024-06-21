@@ -65,8 +65,7 @@ fun MoviesScreen(navController: NavHostController, viewModel: MoviesViewModel) {
     val moviesState = viewModel.moviesState.collectAsState()
     val gridState = rememberLazyGridState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    val scrollBehaviorTopOnly =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    val scrollBehaviorTopOnly = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true) {
@@ -112,7 +111,12 @@ fun MoviesScreen(navController: NavHostController, viewModel: MoviesViewModel) {
                                 items = items.map {
                                     DDLItem(
                                         value = it,
-                                        title = it.displayName,
+                                        title = when(it){
+                                            SortType.POPULAR -> context.getString(R.string.popular)
+                                            SortType.TOP_RATED ->context.getString(R.string.top_rated)
+                                            SortType.NOW_PLAYING -> context.getString(R.string.now_playing)
+                                            SortType.UPCOMING ->context.getString(R.string.upcoming)
+                                        },
                                     )
                                 },
                                 selectedItem = selectedItem,

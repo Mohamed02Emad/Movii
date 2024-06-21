@@ -34,7 +34,7 @@ import com.mo.movie.core.navigation.Screen
 sealed class BottomNavItem(val screen: Screen, val selectedIcon: ImageVector, val notSelectedIcon : ImageVector, val label: String) {
     data object Home : BottomNavItem(Screen.Home, Icons.Filled.Home, Icons.Outlined.Home, "Home")
     data object Movies : BottomNavItem(Screen.Movies, Icons.Filled.Movie, Icons.Outlined.Movie, "Movies")
-    data object TvShows : BottomNavItem(Screen.TvShows, Icons.Filled.LiveTv, Icons.Outlined.LiveTv, "TvShows")
+//    data object TvShows : BottomNavItem(Screen.TvShows, Icons.Filled.LiveTv, Icons.Outlined.LiveTv, "TvShows")
     data object More : BottomNavItem(Screen.More, Icons.Filled.Menu, Icons.Outlined.Menu, "More")
 
 }
@@ -43,7 +43,7 @@ sealed class BottomNavItem(val screen: Screen, val selectedIcon: ImageVector, va
 fun BottomNavigationBar(navController: NavController, sharedViewModel: SharedViewModel) {
     val navigationItems = listOf(
         BottomNavItem.More,
-        BottomNavItem.TvShows,
+//        BottomNavItem.TvShows,
         BottomNavItem.Movies,
         BottomNavItem.Home,
     )

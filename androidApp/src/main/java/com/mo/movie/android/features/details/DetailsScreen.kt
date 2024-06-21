@@ -1,5 +1,6 @@
 package com.mo.movie.android.features.details
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -50,7 +51,6 @@ import com.mo.movie.android.core.composables.YoutubeView
 import com.mo.movie.android.core.composables.buttons.BackButton
 import com.mo.movie.android.core.composables.text.AppText
 import com.mo.movie.android.core.navigation.pop
-import com.mo.movie.android.core.utils.UiUtils.showToast
 import com.mo.movie.android.features.details.composables.RateComposable
 import com.mo.movie.android.features.home.presentation.composables.MovieCard
 import com.mo.movie.android.theme.backgroundLight
@@ -62,6 +62,10 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
     LaunchedEffect(key1 = true) {
         initData(id, viewModel)
     }
+    BackHandler(enabled = true) {
+        navController.pop()
+    }
+
     val context = LocalContext.current
     val movieState = viewModel.movieState.collectAsState()
     val movieDetails = viewModel.movieDetails.collectAsState().value
@@ -158,7 +162,8 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
                             Column {
                                 AppText(
                                     modifier = Modifier.padding(start = 10.dp, top = 26.dp),
-                                    text = movieDetails?.title ?: ""
+                                    text = movieDetails?.title ?: "",
+                                    fontColor = backgroundLight
                                 )
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
@@ -166,13 +171,19 @@ fun DetailsScreen(navController: NavHostController, id: Int, viewModel: DetailsV
                                             .padding(start = 10.dp)
                                             .size(20.dp),
                                         imageVector = Icons.Outlined.CalendarToday,
-                                        contentDescription = null
+                                        contentDescription = null,
+                                        tint = backgroundLight
                                     )
                                     Width(width = 4.dp)
-                                    AppText(text = movieDetails?.releaseDate ?: "")
+                                    AppText(
+                                        text = movieDetails?.releaseDate ?: "",
+                                        fontColor = backgroundLight
+                                    )
                                     val county =
                                         if (movieDetails?.originCountry != null) " (${movieDetails.originCountry.first()})" else ""
-                                    AppText(text = county)
+                                    AppText(
+                                        text = county, fontColor = backgroundLight
+                                    )
                                 }
                                 Height(height = 8.dp)
                                 Box(

@@ -19,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +29,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
@@ -61,92 +64,93 @@ fun ImagesSlider(
                 animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy , stiffness = Spring.StiffnessVeryLow)
             )
     }
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        HorizontalPager(
-            state = pagerState,
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(16 / 7f)
-        ) { page ->
-            Card(
-                shape = RoundedCornerShape(12.dp),
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            HorizontalPager(
+                state = pagerState,
+                contentPadding = PaddingValues(horizontal = 16.dp),
                 modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .graphicsLayer {
-                        val pageOffset = pagerState.currentPageOffsetFraction.absoluteValue
-                        lerp(
-                            start = 0.85f,
-                            stop = 1f,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                        ).also { scale ->
-                            scaleX = scale
-                            scaleY = scale
+                    .fillMaxWidth()
+                    .aspectRatio(16 / 7f)
+            ) { page ->
+                Card(
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .graphicsLayer {
+                            val pageOffset = pagerState.currentPageOffsetFraction.absoluteValue
+                            lerp(
+                                start = 0.85f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            ).also { scale ->
+                                scaleX = scale
+                                scaleY = scale
+                            }
+                            alpha = lerp(
+                                start = 0.5f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            )
                         }
-                        alpha = lerp(
-                            start = 0.5f,
-                            stop = 1f,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                ) {
+                    Box {
+                        Image(
+                            painter = images[page],
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
                         )
-                    }
-            ) {
-                Box {
-                    Image(
-                        painter = images[page],
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    if (page == 0)
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(
-                                    Brush.horizontalGradient(
-                                        listOf(
-                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.35f),
-                                            Color.Transparent,
+                        if (page == 0)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.horizontalGradient(
+                                            listOf(
+                                                MaterialTheme.colorScheme.primary.copy(alpha = 0.35f),
+                                                Color.Transparent,
+                                            )
                                         )
                                     )
-                                )
-                        ) {
-                            Column {
-                                Text(
-                                    context.getString(R.string.see_whats_next),
-                                    modifier = Modifier.padding(
-                                        top = 40.dp,
-                                        start = 8.dp,
-                                        end = 8.dp
-                                    ),
-                                    fontFamily = fontFamilyBebas,
-                                    fontWeight = FontWeight.Bold,
-                                    style = TextStyle(color = backgroundLight, fontSize = 22.sp)
-                                )
-                                Text(
-                                    context.getString(R.string.watch_anytime),
-                                    modifier = Modifier.padding(
-                                        start = 8.dp,
-                                        end = 8.dp
-                                    ),
-                                    fontFamily = fontFamilyOverPass,
-                                    fontWeight = FontWeight.Bold,
-                                    fontStyle = FontStyle.Italic,
-                                    style = TextStyle(color = backgroundLight, fontSize = 11.sp)
-                                )
-                            }
+                            ) {
+                                Column {
+                                    Text(
+                                        context.getString(R.string.see_whats_next),
+                                        modifier = Modifier.padding(
+                                            top = 40.dp,
+                                            start = 8.dp,
+                                            end = 8.dp
+                                        ),
+                                        fontFamily = fontFamilyBebas,
+                                        fontWeight = FontWeight.Bold,
+                                        style = TextStyle(color = backgroundLight, fontSize = 22.sp)
+                                    )
+                                    Text(
+                                        context.getString(R.string.watch_anytime),
+                                        modifier = Modifier.padding(
+                                            start = 8.dp,
+                                            end = 8.dp
+                                        ),
+                                        fontFamily = fontFamilyOverPass,
+                                        fontWeight = FontWeight.Bold,
+                                        fontStyle = FontStyle.Italic,
+                                        style = TextStyle(color = backgroundLight, fontSize = 11.sp)
+                                    )
+                                }
 
-                        }
+                            }
+                    }
                 }
             }
+            Height(10.dp)
+            PagerIndicator(
+                pagerState = pagerState,
+                count = images.size,
+                width = 8.dp,
+                height = 8.dp,
+                activeLineWidth = 8.001.dp
+            )
         }
-        Height(10.dp)
-        PagerIndicator(
-            pagerState = pagerState,
-            count = images.size,
-            width = 8.dp,
-            height = 8.dp,
-            activeLineWidth = 8.001.dp
-        )
     }
 }

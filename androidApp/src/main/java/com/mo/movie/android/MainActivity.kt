@@ -18,8 +18,10 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.identity.Identity
 import com.mo.movie.SharedViewModel
+import com.mo.movie.android.core.navigation.clearBackStack
 import com.mo.movie.android.core.navigation.navhosts.NavHost
 import com.mo.movie.android.features.auth.utils.GoogleAuthUiClient
 import com.mo.movie.android.theme.MyApplicationTheme
@@ -61,6 +63,7 @@ class MainActivity : ComponentActivity() {
             val sharedViewModel: SharedViewModel = globalStates.getSharedViewModel()
             val settingsViewModel: SettingsViewModel = getViewModel()
             val authViewModel: AuthViewModel = getViewModel()
+            val navController = rememberNavController()
             runBlocking {
                 val isLoggedIn = googleAuthUiClient.getSignedInUser() != null
                 sharedViewModel.getStartDestination(isLoggedIn)
@@ -98,6 +101,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         NavHost(
+                            navController = navController,
                             startDestination = startDestination.value,
                             settingsViewModel = settingsViewModel,
                             sharedViewModel = sharedViewModel,

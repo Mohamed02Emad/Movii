@@ -57,4 +57,11 @@
     <string name="recommendations">Recommendations</string>
     <string name="discover_movies">Discover Movies</string>
     <string name="sort">sort</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="logout">Logout</string>
+    <string name="more">More</string>
+
 </resources>

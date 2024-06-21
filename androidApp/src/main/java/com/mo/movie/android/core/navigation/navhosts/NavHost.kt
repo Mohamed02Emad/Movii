@@ -7,9 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.mo.movie.SharedViewModel
+import com.mo.movie.android.CURRENT_LANGUAGE
 import com.mo.movie.android.core.navigation.fadeTransitionComposable
 import com.mo.movie.android.core.navigation.pushReplace
 import com.mo.movie.android.core.navigation.swipeTransitionComposable
@@ -18,9 +19,7 @@ import com.mo.movie.android.features.details.DetailsScreen
 import com.mo.movie.android.features.home.presentation.HomeScreen
 import com.mo.movie.android.features.more.presentation.MoreScreen
 import com.mo.movie.android.features.movies.presentation.MoviesScreen
-import com.mo.movie.android.features.search.presentation.SearchScreen
 import com.mo.movie.android.features.setup.onBoarding.screens.OnBoardingScreen
-import com.mo.movie.android.features.tvShows.presentation.TvShowsScreen
 import com.mo.movie.core.navigation.Screen
 import com.mo.movie.features.auth.presentation.AuthViewModel
 import com.mo.movie.features.details.presentaion.DetailsViewModel
@@ -39,9 +38,11 @@ fun NavHost(
     onSignInClicked: () -> Unit,
     onLogoutClicked: suspend () -> Unit,
     sharedViewModel: SharedViewModel,
+    navController: NavHostController,
 ) {
     val scope = rememberCoroutineScope()
-    val navController = rememberNavController()
+    val homeViewModel: HomeViewModel = getViewModel()
+    val moviesViewModel: MoviesViewModel = getViewModel()
     Box {
         NavHost(
             modifier = Modifier
@@ -72,48 +73,41 @@ fun NavHost(
                 )
             }
 
+
             fadeTransitionComposable(
                 route = Screen.Home.route
             ) {
-                val viewModel: HomeViewModel = getViewModel()
                 HomeScreen(
-                    viewModel = viewModel,
+                    viewModel = homeViewModel,
                     navController = navController,
-                )
-            }
-            fadeTransitionComposable(
-                route = Screen.Search.route
-            ) {
-                SearchScreen(
                 )
             }
             fadeTransitionComposable(
                 route = Screen.Movies.route
             ) {
-                val viewModel: MoviesViewModel = getViewModel()
                 MoviesScreen(
-                    viewModel = viewModel,
+                    viewModel = moviesViewModel ,
                     navController =navController
-                )
-            }
-            fadeTransitionComposable(
-                route = Screen.TvShows.route
-            ) {
-                TvShowsScreen(
                 )
             }
             fadeTransitionComposable(
                 route = Screen.More.route
             ) {
                 MoreScreen(
-                    authViewModel = authViewModel,
                     settingsViewModel = settingsViewModel,
+                    navController = navController,
                     logoutClicked = {
                         scope.launch {
                             onLogoutClicked()
                             navController.pushReplace(Screen.Auth)
                         }
                     },
+                    languageChanged = {
+                        moviesViewModel.clear()
+                        moviesViewModel.getMovies(language = CURRENT_LANGUAGE)
+                        homeViewModel.clear()
+                        homeViewModel.getTrendingMovies(language = CURRENT_LANGUAGE)
+                    }
                 )
             }
 

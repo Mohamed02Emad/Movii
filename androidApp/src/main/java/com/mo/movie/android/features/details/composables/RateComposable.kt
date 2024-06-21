@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mo.movie.android.core.composables.text.AppText
 import com.mo.movie.android.core.utils.extentions.round
+import com.mo.movie.android.theme.backgroundLight
 
 @Composable
 fun RateComposable(
@@ -56,7 +57,10 @@ fun RateComposable(
             )
         }
         if (showRate) {
-            AppText(text = rate.round(2).toString(), fontSize = 13.sp)
+            AppText(
+                text = rate.round(2).toString(), fontSize = 13.sp,
+                fontColor = backgroundLight
+            )
         }
     }
 }

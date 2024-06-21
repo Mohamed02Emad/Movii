@@ -1,5 +1,6 @@
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -37,17 +38,18 @@ fun <T> AppDropdown(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box(modifier = modifier) {
+    Box() {
         val selected = items.firstOrNull { it.value == selectedItem }
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .clip(RoundedCornerShape(8.dp))
                 .background(containerColor)
                 .clickable {
                     expanded = !expanded
                 }
-                .padding(start = 6.dp, top = 2.dp , bottom = 2.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(start = 6.dp, top = 4.dp , bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
              AppText(text = selected?.title ?: hint, fontSize = 12.5.sp , fontColor = if(selected?.title == null) hintColor else selectedTextColor)
              Icon(Icons.Filled.ArrowDropDown, tint = selectedTextColor ,contentDescription = "Dropdown Menu")
